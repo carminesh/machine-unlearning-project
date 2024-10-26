@@ -8,9 +8,25 @@ import numpy as np
 # The purpose of this function, is to observe the overall accuracy of the model 
 # before and after the unlearning process, and to see how performance changes with training epochs.
 
-def plot_accuracy(train_acc, unlearn_acc, epochs):
-    plt.plot(epochs, train_acc, label='Training Accuracy')
-    plt.plot(epochs, unlearn_acc, label='Unlearning Accuracy', linestyle='--')
+def plot_accuracy(train_acc, unlearn_acc, epochs, train_title='Training Accuracy', unlearn_title="Unlearn training accuracy"):
+    # Check if the lengths of the lists match
+    if len(train_acc) != len(epochs):
+        print(f"Length mismatch: train_acc has length {len(train_acc)}, but epochs has length {len(epochs)}.")
+        # Truncate or pad train_acc to match epochs
+        min_length = min(len(train_acc), len(epochs))
+        train_acc = train_acc[:min_length]
+        epochs = epochs[:min_length]
+    
+    if len(unlearn_acc) != len(epochs):
+        print(f"Length mismatch: unlearn_acc has length {len(unlearn_acc)}, but epochs has length {len(epochs)}.")
+        # Truncate or pad unlearn_acc to match epochs
+        min_length = min(len(unlearn_acc), len(epochs))
+        unlearn_acc = unlearn_acc[:min_length]
+        epochs = epochs[:min_length]
+    
+    # Plot the accuracies
+    plt.plot(epochs, train_acc, label=train_title)
+    plt.plot(epochs, unlearn_acc, label=unlearn_title, linestyle='--')
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy (%)')
     plt.title('Accuracy vs Epochs')
@@ -22,9 +38,21 @@ def plot_accuracy(train_acc, unlearn_acc, epochs):
 # especially to check if the model’s loss increases for class 6 (indicating forgetting) 
 # and decreases for class 3 (indicating learning).    
     
-def plot_loss(train_loss, unlearn_loss, epochs):
-    plt.plot(epochs, train_loss, label='Training Loss')
-    plt.plot(epochs, unlearn_loss, label='Unlearning Loss', linestyle='--')
+def plot_loss(train_loss, unlearn_loss, epochs, train_title='Training Loss', unlearn_title="Unlearn Training Loss"):
+    if len(train_loss) != len(epochs):
+        print(f"Length mismatch: train_loss has length {len(train_loss)}, but epochs has length {len(epochs)}.")
+        min_length = min(len(train_loss), len(epochs))
+        train_loss = train_loss[:min_length]
+        epochs = epochs[:min_length]
+    
+    if len(unlearn_loss) != len(epochs):
+        print(f"Length mismatch: unlearn_loss has length {len(unlearn_loss)}, but epochs has length {len(epochs)}.")
+        min_length = min(len(unlearn_loss), len(epochs))
+        unlearn_loss = unlearn_loss[:min_length]
+        epochs = epochs[:min_length]
+    
+    plt.plot(epochs, train_loss, label=train_title)
+    plt.plot(epochs, unlearn_loss, label=unlearn_title, linestyle='--')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.title('Loss vs Epochs')

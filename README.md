@@ -8,6 +8,8 @@ Project of my Deep Learning &amp; Applied AI course , taught by Professor Emanue
 
 This project demonstrates a machine unlearning procedure using convolutional neural network on the MNIST dataset. The goal is to selectively forget a specific class (in this case, class "6") and replace it with another class ("3"), fine-tuning the model with a modified loss function. This approach provides insights into how neural networks can 'forget' learned information without affecting other classes.
 
+[The project report is available here.](resources/project_report.pdf)
+
 ### Objectives
 
 - **Selective Forgetting**: Identify and freeze weights associated with class "6" and penalize them, forcing the network to forget class "6".
